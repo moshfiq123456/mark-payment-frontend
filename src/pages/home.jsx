@@ -1,11 +1,8 @@
 // Home.js
 import React from "react";
+import "./home.css";
 function Home() {
-  return (
-    <div>
-      <button>Click Me (Throttled)</button>
-    </div>
-  );
+  return <button className="button">Button</button>;
 }
 
 export default Home;
