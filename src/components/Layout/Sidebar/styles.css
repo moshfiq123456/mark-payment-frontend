@@ -1,0 +1,35 @@
+aside {
+  min-width: unset !important;
+  height: 100vh;
+}
+
+.ps-sidebar-root {
+  border-right: 1px solid rgba(228, 228, 228, 0.1) !important;
+}
+.ps-sidebar-root .ps-sidebar-container {
+  background-color: #cbddff !important;
+}
+
+.ps-menuitem-root {
+  padding: 0 1.25rem !important;
+}
+.ps-menuitem-root .ps-menu-button {
+  padding: 1.125rem 1.25rem;
+}
+.ps-menuitem-root .ps-menu-button:hover {
+  background-color: #e5eeff !important;
+  border-radius: 0.75rem !important;
+}
+.ps-menuitem-root .ps-menu-button:has(a.active) {
+  background-color: #e5eeff !important;
+  border-radius: 0.75rem !important;
+}
+.ps-menuitem-root .ps-menu-button .ps-menu-label .active div {
+  filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%);
+}
+.ps-menuitem-root .ps-menu-button .ps-menu-label .hover div {
+  filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%);
+}
+.ps-menuitem-root .ps-menu-button .ps-menu-label a div .menu-icon svg {
+  width: 2rem;
+}/*# sourceMappingURL=styles.css.map */

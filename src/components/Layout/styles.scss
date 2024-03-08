@@ -1,0 +1,17 @@
+.section-min-breakpoint{
+    width: 100vw;
+
+    @media screen and (min-width: 1024px){
+        width: calc(100vw - 23rem  );
+        // overflow: hidden;
+    }
+}
+
+.section-min-breakpoint-collapse{
+    width: 100vw;
+
+    @media screen and (min-width: 1024px){
+        width: calc(100vw - 9rem  );
+        // overflow: hidden;
+    }
+}

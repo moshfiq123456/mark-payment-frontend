@@ -1,0 +1,17 @@
+.section-min-breakpoint {
+  width: 100vw;
+}
+@media screen and (min-width: 1024px) {
+  .section-min-breakpoint {
+    width: calc(100vw - 23rem);
+  }
+}
+
+.section-min-breakpoint-collapse {
+  width: 100vw;
+}
+@media screen and (min-width: 1024px) {
+  .section-min-breakpoint-collapse {
+    width: calc(100vw - 9rem);
+  }
+}/*# sourceMappingURL=styles.css.map */

@@ -13,6 +13,8 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import jwt_decode, { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import Layout from "./components/Layout";
+import { Icecream, Payment } from "./pages";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -86,8 +88,21 @@ function App() {
         <Route
           exact
           path="/"
-          element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
-        ></Route>
+          element={isLoggedIn ?<Layout><Home /></Layout>  : <Navigate to="/login" />}
+        >
+          <Route  
+            exact
+            path="/food"
+            element={isLoggedIn ?<food />  : <Navigate to="/login" />}/>
+            <Route  
+            exact
+            path="/payment"
+            element={isLoggedIn ?<Payment />  : <Navigate to="/login" />}/>
+            <Route  
+            exact
+            path="/icecream"
+            element={isLoggedIn ?<Icecream />  : <Navigate to="/login" />}/>
+        </Route>
       </Routes>
     </BrowserRouter>
     // return <Routes>{getRoute()}</Routes>;

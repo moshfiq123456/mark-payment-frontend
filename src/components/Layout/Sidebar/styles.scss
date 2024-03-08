@@ -1,0 +1,108 @@
+aside{
+    //position: absolute !important;
+    min-width: unset !important;
+    height: 100vh;
+
+};
+
+.ps-sidebar-root{
+    border-right: 1px solid rgba(228, 228, 228, 0.1) !important;
+    .ps-sidebar-container{
+        background-color: #cbddff !important;
+    }
+}
+// .ps-submenu-root{
+//     .css-1t8x7v1{
+//         background-color: #fefeff !important;
+//     }
+//     .css-ewdv3l{
+//         background-color: #fefeff !important;
+//     }
+//     .css-ewdv3l{
+//         padding: 0.5rem 0 0.5rem 0 !important;
+//     }
+
+//     &:hover{
+//         background-color: rgba(91, 91, 91, 0) !important;
+//     }
+//     .css-z5rm24{
+//         background-color: #fefeff !important;
+//     }
+//     .ps-menu-icon{
+//         svg{
+//             width: 2rem;
+
+//         }
+
+//     }
+//     .ps-menu-button{
+//         padding: 1.125rem 1.25rem !important;
+//         &:hover{
+//             background-color: #fefeff !important;
+//         }
+
+//         &:has(a.active){
+//             background-color: #fefeff !important;
+//             border-radius: .75rem !important;
+//         }
+
+//         .ps-menu-label{
+//             .active{
+//                 div{
+//                     filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%) !important;
+//                 }
+//             }
+
+//             a{
+//                 div{
+//                     .menu-icon{
+//                         svg{
+//                             width: 1.5rem !important;
+
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+.ps-menuitem-root{
+    padding: 0 1.25rem !important;
+
+    .ps-menu-button{
+        padding: 1.125rem 1.25rem;
+        &:hover{
+            background-color: #e5eeff !important;
+            border-radius: .75rem !important;
+        }
+
+        &:has(a.active){
+            background-color: #e5eeff !important;
+            border-radius: .75rem !important;
+        }
+
+        .ps-menu-label{
+            .active{
+                div{
+                    filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%);
+                }
+            }
+            .hover{
+                div{
+                    filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%);
+                }
+            }
+
+            a{
+                div{
+                    .menu-icon{
+                        svg{
+                            width: 2rem;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
