@@ -3,15 +3,15 @@ import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { NavLink } from "react-router-dom";
 
 import "./styles.scss"
-import { LogoutIcon } from "../../../assets/svg";
-
+import { LogoutIcon,FoodIcon,PurchaseIcon,IcecreamIcon} from "../../../assets/svg";
+import { Logo } from '../../../assets/png'
 
 const subMenuList = [
   {
     id: "0",
     label: "Food",
-    path: `/food`,
-    icon: <LogoutIcon/>,
+    path: `/`,
+    icon: <FoodIcon/>,
     permissions: {
       userCode: [],
     },
@@ -21,7 +21,7 @@ const subMenuList = [
     id: "1",
     label: "Payment",
     path: `/payment`,
-    icon: <LogoutIcon/>,
+    icon: <PurchaseIcon/>,
     permissions: {
       userCode: [],
     },
@@ -31,23 +31,23 @@ const subMenuList = [
     id: "2",
     label: "Ice cream",
     path: `/icecream`,
-    icon: <LogoutIcon/>,
+    icon: <IcecreamIcon/>,
     permissions: {
       userCode: [],
     },
     submenu: [],
   }, 
 ];
-const Aside = ({ toggle, handleToggle, handleCollapse, collapse }) => {
+const Aside = ({ toggle, handleToggle, handleCollapse, collapse,isMobile }) => {
   return (
-    <div>
+    <div >
       <Sidebar
         customBreakPoint={"1024px"}
         breakPoint="always"
         onBackdropClick={handleToggle}
         toggled={toggle}
         collapsed={collapse}
-        style={{ width: `${collapse ? "6rem" : "250px"}` }}
+        style={{ width: `${collapse ? "6rem" : "250px"}`,height:`${!isMobile && "calc(100vh - 80px)"}` }}
       >
         <div
           className={`p flex ${
@@ -55,7 +55,12 @@ const Aside = ({ toggle, handleToggle, handleCollapse, collapse }) => {
           } justify-between`}
         >
           <div className="flex content-center justify-center">
-            {!toggle ? (
+            {
+              isMobile ?<div>
+              <img src={Logo} height={`60`} width={`60`} />
+          </div>:<></>
+            }
+            {/* {!toggle ? (
               <button className="p-0" onClick={() => handleCollapse()}>
                 {collapse ? (
                   <LogoutIcon height={20} width={20} color={"#000000"}/>
@@ -67,18 +72,20 @@ const Aside = ({ toggle, handleToggle, handleCollapse, collapse }) => {
               </button>
             ) : (
               <></>
-            )}
+            )} */}
           </div>
         </div>
-
-        <Menu>
+        
+        <Menu className="mt-10">
           {subMenuList.length > 0 &&
             subMenuList.map((sideMenu) => {
-              return <MenuItem key={sideMenu.id}>
+
+              return<div  className="tooltip  tooltip-top w-full" data-tip={"hello"}>
+                <MenuItem key={sideMenu.id} >
                         <NavLink to={sideMenu.path}>
                             <div className="flex flex-row gap-2">
                                 {sideMenu.icon && (
-                                    <div className="flex items-center justify-center p-0 menu-icon">
+                                    <div className="flex items-center justify-center p-0 menu-icon" data-tip="hello">
                                         {sideMenu.icon}
                                     </div>
                                 )}
@@ -91,6 +98,7 @@ const Aside = ({ toggle, handleToggle, handleCollapse, collapse }) => {
                             </div>
                         </NavLink>
                     </MenuItem>
+              </div> 
             })}
         </Menu>
       </Sidebar>

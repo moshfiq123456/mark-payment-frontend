@@ -2,46 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { Logo } from '../../../assets/png'
 import { HamburgerIcon, LogoutIcon } from '../../../assets/svg'
 
-const Navbar = ({handleToggle}) => {
+const Navbar = ({handleToggle,handleCollapse,isMobile}) => {
 
-  
-    const [windowSize, setWindowSize] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-      const isMobile = windowSize.width <= 1024;
-      useEffect(() => {
-        const handleResize = () => {
-          setWindowSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-          });
-        };
-    
-        window.addEventListener("resize", handleResize);
-    
-        return () => {
-          window.removeEventListener("resize", handleResize);
-        };
-      }, []);
-    
-      // Define breakpoints
-   
   return (
-    <div className='flex flex-row justify-between px-12 py-2 shadow-2xl' style={{backgroundColor:"#e5eeff"}}>
+    <div className='flex flex-row justify-between px-12 py-2 shadow-sm' style={{backgroundColor:"#ffffff"}}>
         <div>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row gap-10">
+           
               {isMobile ? (
                 <button
-                  className={"text-white btn bg-transparent p-0"}
+                  className={"text-white  bg-transparent p-0"}
                   onClick={() => handleToggle()}
                 >
                   <HamburgerIcon/>
                 </button>
               ) : (
-                <></>
+                <button
+                  className={"text-white  bg-transparent p-0 "}
+                  onClick={() => handleCollapse()}
+                >
+                  <HamburgerIcon/>
+                </button>
               )}
-                <div>
+                 <div>
                     <img src={Logo} height={`60`} width={`60`} />
                 </div>
             </div>

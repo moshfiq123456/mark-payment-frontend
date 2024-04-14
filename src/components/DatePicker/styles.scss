@@ -1,0 +1,36 @@
+.react-datepicker{
+    padding: 2rem;
+    background: lighten(#97bfe8,20%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    border-radius: 1.5rem !important;
+    border: 1px solid rgba(228, 228, 228, 0.1) !important;
+    box-shadow: none !important;
+    &__month-container{
+
+    }
+    &__current-month{
+        font-weight: 800 !important;
+        font-size: 1.5rem !important;
+    }
+    &__header{
+        background-color:lighten(#97bfe8,10%) !important; ;
+    }
+    &__day-names{
+        display: flex !important;
+        flex-direction: row !important;
+        gap:0.05rem !important
+        
+    }
+    &__day-name{
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+    }
+    &__navigation {
+        top: 50px !important;
+    }
+    &__navigation-icon{
+        
+    }
+  }

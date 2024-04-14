@@ -2,8 +2,6 @@
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Switch,
   Routes,
   BrowserRouter,
   Navigate,
@@ -11,10 +9,10 @@ import {
 import React, { useState, useEffect } from "react";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import jwt_decode, { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Layout from "./components/Layout";
-import { Icecream, Payment } from "./pages";
+import { Icecream, Payment,Food } from "./pages";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -74,37 +72,38 @@ function App() {
 
     checkAccessToken();
   }, []);
+  const savedRoute = localStorage.getItem("currentRoute");
   console.log(isLoggedIn);
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          exact
-          path="/login"
-          element={
-            isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
-          }
-        />
-        <Route
+    <Routes>
+      <Route
+        exact
+        path="/login"
+        element={
+          isLoggedIn ? <Navigate to={savedRoute || "/"} /> : <Login onLogin={handleLogin} />
+        }
+      />
+      <Route
+        exact
+        path="/"
+        element={isLoggedIn ? <Layout></Layout>  : <Navigate to="/login" />}
+      >
+        <Route  
           exact
           path="/"
-          element={isLoggedIn ?<Layout><Home /></Layout>  : <Navigate to="/login" />}
-        >
+          element={isLoggedIn ? <Food/>  : <Navigate to="/login" />}/>
           <Route  
-            exact
-            path="/food"
-            element={isLoggedIn ?<food />  : <Navigate to="/login" />}/>
-            <Route  
-            exact
-            path="/payment"
-            element={isLoggedIn ?<Payment />  : <Navigate to="/login" />}/>
-            <Route  
-            exact
-            path="/icecream"
-            element={isLoggedIn ?<Icecream />  : <Navigate to="/login" />}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          exact
+          path="/payment"
+          element={isLoggedIn ? <Payment />  : <Navigate to="/login" />}/>
+          <Route  
+          exact
+          path="/icecream"
+          element={isLoggedIn ? <Icecream />  : <Navigate to="/login" />}/>
+      </Route>
+    </Routes>
+  </BrowserRouter>
     // return <Routes>{getRoute()}</Routes>;
   );
 }

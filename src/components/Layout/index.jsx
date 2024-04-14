@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
-
-import Navbar from './Navbar';
-import Aside from './Sidebar';
-import { Outlet } from 'react-router-dom';
-import "./styles.scss"
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "./Navbar";
+import Aside from "./Sidebar";
+import "./styles.scss";
 
 const Layout = () => {
   const [toggled, setToggled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const isMobile = windowSize.width <= 1024;
+  const location = useLocation();
 
   const handleToggle = () => {
     setToggled((prev) => !prev);
@@ -17,37 +22,50 @@ const Layout = () => {
     setCollapsed((prev) => !prev);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Save current route to local storage
+    localStorage.setItem("currentRoute", location.pathname);
+  }, [location.pathname]);
+
   return (
-    <main
-      id="main"
-      style={{
-        height: "100vh",
-      }}
-    >
-        <Navbar handleToggle={handleToggle} />
-      <div className="m-0 flex flex-row">
-      <Aside
-        handleToggle={handleToggle}
-        toggle={toggled}
-        handleCollapse={handleCollapse}
-        collapse={collapsed}
-      /> 
+    <main id="main">
+      <Navbar handleToggle={handleToggle} handleCollapse={handleCollapse} isMobile={isMobile} />
+      <div className="m-0 flex flex-row w-full"  >
+        <Aside
+          handleToggle={handleToggle}
+          toggle={toggled}
+          handleCollapse={handleCollapse}
+          collapse={collapsed}
+          isMobile={isMobile}
+        />
         <section
-        //   className={`flex-grow p-4 overflow-auto ${
-        //     collapsed
-        //       ? "section-min-breakpoint-collapse"
-        //       : "section-min-breakpoint"
-        //   } `}
-          style={{
-            // height: "calc(100vh - 6rem)",
-            overflowY: "auto",
-          }}
+          className={`w-full p-10 flex-grow ${
+            collapsed
+              ? "section-min-breakpoint-collapse"
+              : "section-min-breakpoint"
+          } overflow-hidden`}
+          style={{ overflowY: "auto", background:"#f5f6fa" }}
         >
           <Outlet />
         </section>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -2,13 +2,12 @@ aside{
     //position: absolute !important;
     min-width: unset !important;
     height: 100vh;
-
 };
 
 .ps-sidebar-root{
     border-right: 1px solid rgba(228, 228, 228, 0.1) !important;
     .ps-sidebar-container{
-        background-color: #cbddff !important;
+        background-color: #ffffff !important;
     }
 }
 // .ps-submenu-root{
@@ -67,24 +66,24 @@ aside{
 //     }
 // }
 .ps-menuitem-root{
-    padding: 0 1.25rem !important;
+    padding: 0 1rem !important;
 
     .ps-menu-button{
-        padding: 1.125rem 1.25rem;
+        padding: 1rem 1rem;
         &:hover{
             background-color: #e5eeff !important;
             border-radius: .75rem !important;
         }
 
         &:has(a.active){
-            background-color: #e5eeff !important;
+            background-color: #4880ff !important;
             border-radius: .75rem !important;
         }
 
         .ps-menu-label{
             .active{
                 div{
-                    filter: invert(33%) sepia(85%) saturate(4865%) hue-rotate(226deg) brightness(104%) contrast(101%);
+                    filter: invert(20%) sepia(100%) saturate(48%) hue-rotate(0deg) brightness(300%) contrast(101%);
                 }
             }
             .hover{
@@ -97,7 +96,7 @@ aside{
                 div{
                     .menu-icon{
                         svg{
-                            width: 2rem;
+                            width: 1.5rem;
 
                         }
                     }

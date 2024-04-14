@@ -1,0 +1,70 @@
+.react-datepicker{
+    padding: 2rem;
+    background: lighten(#97bfe8,20%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    border-radius: 1.5rem !important;
+    border: 1px solid rgba(228, 228, 228, 0.1) !important;
+    box-shadow: none !important;
+    &__month-container{
+
+    }
+    &__current-month{
+        font-weight: 800 !important;
+        font-size: 1.5rem !important;
+    }
+    &__header{
+        background-color:lighten(#97bfe8,10%) !important; ;
+    }
+    &__day-names{
+        display: flex !important;
+        flex-direction: row !important;
+        gap:0.05rem !important
+        
+    }
+    &__day-name{
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+    }
+    &__navigation {
+        top: 50px !important;
+    }
+    &__navigation-icon{
+        
+    }
+    //   & .rmdp-calendar{
+    //     background-color: #FFFFFF !important;
+    //     box-shadow: 0px 0px 20px 4px rgba(191, 191, 191, 0.25) !important;
+    //     border-radius: 1rem !important;
+  
+    //     & .rmdp-week-day{
+    //       color: #737373 !important;
+    //     }
+  
+    //     & .rmdp-today{
+    //       span{
+    //         background-color: #355dff82 !important;
+    //       } 
+    //     }
+  
+    //     & .rmdp-selected{
+    //       span{
+    //         background-color: #355DFF !important;
+    //       } 
+    //     }
+    //   }  
+  
+    //   &__arrow{
+    //     background-color: none !important;
+    //     border: 0 !important;
+    //     z-index: 99 !important;
+  
+    //     &:after{
+    //       background-color: #1c1e24 !important;
+    //       border: 1px solid rgba(228, 228, 228, 0.1);
+    //       box-shadow: none !important;
+    //       left: 50% !important;
+    //     }
+    //   }
+  }
