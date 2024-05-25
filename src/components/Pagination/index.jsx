@@ -21,11 +21,11 @@ const Pagination = ({ itemsPerPage, total, action }) => {
         action(currentPage); // Pass the zero-based index of the next page
       }
     };
-    console.log()
+    
   return (
     <div className="flex justify-between flex-wrap items-center w-full">
       <div className=" text-blue-300">
-      Page {currentPage} of {pageCount}
+      Page {currentPage} of {pageCount===0 ? 1:pageCount}. Total - {total}
       </div>
  
       <div>

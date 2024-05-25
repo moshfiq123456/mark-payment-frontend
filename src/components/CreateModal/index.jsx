@@ -1,5 +1,8 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useState } from "react";
 import ReactSelect from "react-select";
+import { getProductSelector } from "../../redux/selectors/getProductSelector";
+import { useSelector } from "react-redux";
 
 export const statusOptions =[
   {
@@ -35,6 +38,9 @@ const parseTextToBoolean = (text) => {
   }
 };
 const CreateModal = ({onSubmit}) => {
+  const { products, loading, error } = useSelector(getProductSelector)
+  const token = jwtDecode(localStorage.getItem("accessToken"));
+  console.log(token)
   const [initialState, setInitialState] = useState({
     client: "",
     carton: "",
@@ -42,9 +48,9 @@ const CreateModal = ({onSubmit}) => {
     product: "",
     status: false,
     paymentMethod: false
+
   });
   const handleSelect = (key,value) => {
-    console.log(key,value)
     setInitialState((prevState) => ({
       ...prevState,
       [key]: value
@@ -52,7 +58,7 @@ const CreateModal = ({onSubmit}) => {
 
   };
   const handleChange = (e) => {
-    console.log(e.target)
+
     const { name, value, type } = e.target;
     const parsedValue = type === "number" ? Number(value) : type === "text" ? value : parseTextToBoolean(value) ;
     setInitialState((prevState) => ({
@@ -68,7 +74,7 @@ const CreateModal = ({onSubmit}) => {
     modal.close();
   }
   }
-  console.log(initialState)
+
   return (
     <>
       <button
@@ -113,14 +119,19 @@ const CreateModal = ({onSubmit}) => {
             onChange={handleChange}
           />
           <div>Product</div>
-          <input
+          {/* <input
             type="text"
             name="product"
             value={initialState.product}
             placeholder="Product"
             className="input input-bordered input-info w-full"
             onChange={handleChange}
-          />
+          /> */}
+          <ReactSelect  options={products.length ? products.map((value)=>
+            ({value:value._id,
+              label:value.product
+            })
+          ):[]}/>
           <div>Status</div>
           <ReactSelect value={{
             label:initialState.status === false ? "Not Paid":"Paid",

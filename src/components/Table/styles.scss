@@ -17,19 +17,21 @@
           font-size: 14px !important;
           font-weight: 600 !important;
           color: #2b2c2e !important;
+          &:first-child {
+            text-align: right !important; /* Align text to the left */
+            border-right: 0px !important;
+            border-radius: 1rem 0rem 0rem 1rem !important;
+            max-width: 5px;
+          }
+          &:last-child {
+            text-align: left !important; /* Align text to the left */
+            border-right: 0px !important;
+            border-radius: 0rem 1rem 1rem 0rem !important;
+            max-width:  40px
+          }
        
         }
-        th:first-child { /* Targeting the first th element */
-          text-align: right !important; /* Align text to the left */
-          border-right: 0px !important;
-          border-radius: 1rem 0rem 0rem 1rem !important;
-        }
-        th:last-child { /* Targeting the first th element */
-          text-align: left !important; /* Align text to the left */
-          border-right: 0px !important;
-          border-radius: 0rem 1rem 1rem 0rem !important;
-          
-        }
+        
       }
     }
     tbody{ /* Set the max height for tbody */
@@ -39,25 +41,29 @@
         height: 10px !important;
         text-align: center !important;
         &:hover {
-          background-color: #ebffee !important;
+          background-color: #e5eeff !important;
         }  
         td{
-          font-size: 13px !important;
-          font-weight: 400 !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
           padding: .5rem !important;
           
           border-bottom: 1px solid #CACACA!important;
-          
+          &:first-child {
+            text-align: right !important; /* Align text to the left */
+            border-right: 1px solid #ffffff !important;
+            border-left: 1px solid #ffffff !important;
+            max-width: 5px;
+          }
+          &:last-child {
+           // Width for the first th element
+            text-align: left !important;
+            max-width: 40px
+          }
+         
         
         }
-        td:first-child { /* Targeting the first th element */
-          text-align: right !important; /* Align text to the left */
-          border-right: 1px solid #ffffff !important;
-          border-left: 1px solid #ffffff !important;
-        }
-        td:last-child { /* Targeting the first th element */
-          text-align: left !important; /* Align text to the left */
-        }
+        
 
       }
     }

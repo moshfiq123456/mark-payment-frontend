@@ -1,12 +1,11 @@
 // TableComponent.js
-import React, { useState } from 'react';
+import React from 'react';
 import "./styles.scss"
+
 const Table = ({ rows, columns, selectedKey, setSelectedKey }) => {
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
 
   return (
-    <div className='flex flex-col overflow-auto gap-8' style={{maxHeight:"500px"}}>
+    <div className='flex flex-col overflow-auto gap-8' >
       <table className="table--custom">
         <thead>
           <tr>
@@ -21,7 +20,7 @@ const Table = ({ rows, columns, selectedKey, setSelectedKey }) => {
           {rows.length ? rows.map((row) => (
             <tr key={row._id}>
               {columns.map((col) => (
-                <td className='text-nowrap' key={`${row._id}-${col.key}`}>
+                <td className='text-wrap' key={`${row._id}-${col.key}`}>
                   {col.render ? col.render(row, selectedKey, setSelectedKey) : row[col.dataIndex]}
                 </td>
               ))}
@@ -35,13 +34,3 @@ const Table = ({ rows, columns, selectedKey, setSelectedKey }) => {
 };
 
 export default Table;
-
-{/* <div className="pagination">
-<button disabled={page === 1} onClick={() => setPage(page - 1)}>
-  Previous
-</button>
-<span>{page}</span>
-<button disabled={page * pageSize >= sortedData.length} onClick={() => setPage(page + 1)}>
-  Next
-</button>
-</div> */}

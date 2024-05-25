@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import LoadingSpinner from "../components/LoadingSpinner";
 import markImage from '../assets/png/markAiImage.png'; // Import the image
 import markIcon from '../assets/png/logo.png'
+import api from "../helpers/api";
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +32,7 @@ function Login({ onLogin }) {
     e.preventDefault();
     setLoading(true)
     try {
-      const response = await axios.post("http://localhost:10000/api/login", {
+      const response = await api.post("login", {
         email,
         password,
       });
@@ -44,7 +45,6 @@ function Login({ onLogin }) {
       localStorage.setItem("refreshToken", refreshToken);
       setLoading(false)
     } catch (error) {
-      console.error("Error:", error);
       setError("Invalid email or password");
       setLoading(false)
     }

@@ -1,14 +1,16 @@
 import { ROUTES } from "../constants/Routes";
 import axios from "axios";
 import { performResponseData } from "../utils/api";
+
+const token = localStorage.getItem("accessToken");
 const headers = {
     //   'Access-Control-Allow-Origin': '*',
     //   'Access-Control-Allow-Headers':
     //   'Origin, X-Requested-With, Content-Type, Accept',
     //   'Content-Type': 'application/x-www-form-urlencoded',
     //   Accept: 'application/json',
-    'Content-Type': 'application/json',
-
+    
+    'Authorization': `Bearer ${token}`
     
   };
   
@@ -28,17 +30,19 @@ const headers = {
     }
 }
 
-const api = axios.create({
+const downloadApi = axios.create({
     baseURL: `${process.env.REACT_APP_MI_BASE_URL}/`,
-    headers,
+    headers:headers,
+    responseType:"arraybuffer"
+    
   });
   
-  api.interceptors.request.use(function (config) {
-    const token = localStorage.getItem("accessToken");
+  downloadApi.interceptors.request.use(function (config) {
+
     config.headers.Authorization = 'Bearer ' + token;
     return config;
   });
   
-  api.interceptors.response.use(onResponseSuccess, onResponseError);
+//   downloadApi.interceptors.response.use(onResponseSuccess, onResponseError);
 
-  export default api;
+  export default downloadApi;

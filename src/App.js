@@ -3,19 +3,21 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  BrowserRouter,
   Navigate,
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+
 import Login from "./pages/login";
-import Home from "./pages/home";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 import Layout from "./components/Layout";
-import { Icecream, Payment,Food } from "./pages";
+import { Icecream, Payment, Food } from "./pages";
+import Product from "./pages/ProductPage";
+import User from "./pages/UserPage";
+import api from "./helpers/api";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const savedRoute = localStorage.getItem("currentRoute");
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -23,88 +25,111 @@ function App() {
 
   useEffect(() => {
     const checkAccessToken = async () => {
-      const accessToken = localStorage.getItem("accessToken");
-      if (accessToken) {
-        const decodedToken = jwtDecode(accessToken);
-        const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        let decodedToken;
+        try {
+          decodedToken = jwtDecode(token);
+        } catch (e) {
+          console.error("Invalid token", e);
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          setIsLoggedIn(false);
+          return;
+        }
+
+        const currentTime = Date.now() / 1000;
         if (currentTime >= decodedToken.exp) {
-          console.log("Access token is expired, try refreshing it");
-          // Access token is expired, try refreshing it
           const refreshToken = localStorage.getItem("refreshToken");
           if (refreshToken) {
             try {
-              const response = await axios.post(
-                "http://localhost:10000/api/refreshToken",
-                {
-                  refreshToken,
-                }
-              );
+              const response = await api.post("refreshToken", { refreshToken });
               const newAccessToken = response.data.accessToken;
-              // Update the access token in local storage
               localStorage.setItem("accessToken", newAccessToken);
-              console.log("Update the access token in local storage");
               setIsLoggedIn(true);
             } catch (error) {
-              console.error("Error refreshing access token:", error);
+              console.error("Error refreshing token", error);
               setIsLoggedIn(false);
             }
           } else {
-            // No refresh token available, user needs to log in again
             localStorage.removeItem("accessToken");
-            // Set new access token to local storage
             localStorage.removeItem("refreshToken");
             setIsLoggedIn(false);
-            console.log(
-              "No refresh token available, user needs to log in again"
-            );
           }
         } else {
-          // Access token is still valid
           setIsLoggedIn(true);
-          console.log("Access token is still valid");
         }
       } else {
-        // No access token available, user needs to log in
-        console.log("No access token available, user needs to log in");
         setIsLoggedIn(false);
       }
     };
 
     checkAccessToken();
   }, []);
-  const savedRoute = localStorage.getItem("currentRoute");
-  console.log(isLoggedIn);
+
+  const hasRole = (roles, allowedRoles) => {
+    return allowedRoles.some((role) => roles.includes(role));
+  };
+
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route
-        exact
-        path="/login"
-        element={
-          isLoggedIn ? <Navigate to={savedRoute || "/"} /> : <Login onLogin={handleLogin} />
-        }
-      />
-      <Route
-        exact
-        path="/"
-        element={isLoggedIn ? <Layout></Layout>  : <Navigate to="/login" />}
-      >
-        <Route  
+    <Router>
+      <Routes>
+        <Route
+          exact
+          path="/login"
+          element={
+            isLoggedIn ? (
+              <Navigate to={savedRoute || "/"} />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )
+          }
+        />
+        <Route
           exact
           path="/"
-          element={isLoggedIn ? <Food/>  : <Navigate to="/login" />}/>
-          <Route  
-          exact
-          path="/payment"
-          element={isLoggedIn ? <Payment />  : <Navigate to="/login" />}/>
-          <Route  
-          exact
-          path="/icecream"
-          element={isLoggedIn ? <Icecream />  : <Navigate to="/login" />}/>
-      </Route>
-    </Routes>
-  </BrowserRouter>
-    // return <Routes>{getRoute()}</Routes>;
+          element={isLoggedIn ? <Layout /> : <Navigate to="/login" />}
+        >
+          <Route
+            exact
+            path="/"
+            element={isLoggedIn ? <Food /> : <Navigate to="/login" />}
+          />
+          <Route
+            exact
+            path="/payment"
+            element={isLoggedIn ? <Payment /> : <Navigate to="/login" />}
+          />
+          <Route
+            exact
+            path="/icecream"
+            element={isLoggedIn ? <Icecream /> : <Navigate to="/login" />}
+          />
+          <Route
+            exact
+            path="/product"
+            element={
+              isLoggedIn
+                ? hasRole(jwtDecode(localStorage.getItem("accessToken")).roles, ["admin", "super_admin"])
+                  ? <Product />
+                  : <div>Not permitted</div>
+                : <Navigate to="/login" />
+            }
+          />
+          <Route
+            exact
+            path="/users"
+            element={
+              isLoggedIn
+                ? hasRole(jwtDecode(localStorage.getItem("accessToken")).roles, ["super_admin"])
+                  ? <User />
+                  : <div>Not permitted</div>
+                : <Navigate to="/login" />
+            }
+          />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
